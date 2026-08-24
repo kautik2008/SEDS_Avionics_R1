@@ -9,8 +9,12 @@ class KalmanFilter:
 
     def __init__(self, initial_value):
         self.estimate = initial_value
+        # error of the sensor
         self.error = 1.0
+        # amount of noise in the sensor.
+        # (The larger the measurement_noise value we enter, smoother the graph will be)
         self.measurement_noise = 50.0
+        # constantly injects a small amount of uncertainty so the Kalman gain keeps paying attention to incoming sensor data.
         self.process_noise = 1.0
 
 
@@ -26,17 +30,15 @@ class KalmanFilter:
         return self.estimate
 
 
-# 1. READ CSV FILE
+# 1. Read the data
 
 data = pd.read_csv("Depth Data.csv")
-
 
 # Get the Depth column
 depth = pd.to_numeric(
     data["Depth (m)"],
     errors="coerce"
 )
-
 
 # 2. CREATE TIME VALUES
 
@@ -46,21 +48,15 @@ time = list(range(len(depth)))
 # 3. KALMAN FILTER
 first_value =  depth.iloc[0]
 
-
 # Create the filter
 kalman = KalmanFilter(first_value)
 
-
 # 4. PREPARE LISTS FOR THE GRAPH
-
 time_data = []
 filtered_data = []
 
-
 # 5. CREATE GRAPH
-
 fig, ax = plt.subplots(figsize=(10, 6))
-
 
 ax.set_title("Real-Time Ship Depth Monitoring")
 
@@ -78,23 +74,13 @@ line, = ax.plot(
     linewidth=2,
     label="Kalman Filtered Depth"
 )
-
-
 ax.legend()
 
-
 # Set graph limits
-ax.set_xlim(
-    0,
-    len(time) - 1
-)
-
-
+ax.set_xlim(0,len(time) - 1)
 ax.set_ylim(-500,-50)
 
-
 # 6. UPDATE FUNCTION
-
 def update(frame):
     measurement = depth.iloc[frame]
 
