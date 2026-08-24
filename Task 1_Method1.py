@@ -1,3 +1,5 @@
+// Using ROLLING AVERAGE to filter the noise
+
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -6,14 +8,14 @@ from matplotlib.animation import FuncAnimation
 # 1. Read the data
 
 data = pd.read_csv("Depth Data.csv")
-
+#import the data in CSV
 depth = pd.to_numeric(
     data["Depth (m)"],
     errors="coerce"
 )
 
 
-# 2. Replace sensor errors
+# 2. Remove the errors and 0 values and those which are unusually high
 
 depth_clean = depth.copy()
 
@@ -29,6 +31,7 @@ for i in range(1, len(depth_clean) - 1):
         depth_clean.iloc[i] = avg
 
 # 3. Reduce noise
+# centre=True makes sure that we don't get errors when there is not enough data
 
 depth_smooth = (
     depth_clean
@@ -91,10 +94,8 @@ def update(frame):
     return line,
 
 
-# -----------------------------------------
 # 7. Start the animation
-# -----------------------------------------
-
+# The update function recurrs every frame
 animation = FuncAnimation(
     fig,
     update,
