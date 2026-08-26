@@ -2,10 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-
 # KALMAN FILTER
 class KalmanFilter:
-
     def __init__(self, initial_value):
 
         # Our first estimate of the depth
@@ -20,7 +18,6 @@ class KalmanFilter:
         # How much we expect the actual depth to change
         self.process_noise = 1.0
 
-
     def update(self, measurement):
         self.error = self.error + self.process_noise
 
@@ -34,7 +31,6 @@ class KalmanFilter:
 
 
 # 1. Read the data
-
 data = pd.read_csv("Depth Data.csv")
 
 # Get the Depth column
@@ -46,7 +42,6 @@ depth = pd.to_numeric(
 # 2. CREATE TIME VALUES
 
 time = list(range(len(depth)))
-
 
 # 3. KALMAN FILTER
 first_value =  depth.iloc[0]
@@ -94,9 +89,7 @@ def update(frame):
         filtered_value = kalman.update(measurement)
 
     time_data.append(time[frame])
-
     filtered_data.append(filtered_value)
-
     line.set_data(
         time_data,
         filtered_data
@@ -106,7 +99,6 @@ def update(frame):
 
 
 # 7. START ANIMATION
-
 animation = FuncAnimation(
     fig,
     update,
