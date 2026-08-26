@@ -122,7 +122,7 @@ void displayState() {
 }
 
 
-BUTTON DETECTION
+//BUTTON DETECTION
 bool bef = HIGH;
 
 bool btn_prs() {
