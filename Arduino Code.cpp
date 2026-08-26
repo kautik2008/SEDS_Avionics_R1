@@ -314,7 +314,7 @@ void loop() {
       			return;
     		}
 
-    // -------- ESCAPED FROM CHARYBDIS --------
+    // ESCAPED FROM CHARYBDIS
     		if (!charybdisDetected) {
       			digitalWrite(buzzerPin, LOW);
       			changeState(OPEN_SEA);
