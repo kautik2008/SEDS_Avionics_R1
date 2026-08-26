@@ -4,17 +4,20 @@ from matplotlib.animation import FuncAnimation
 
 
 # KALMAN FILTER
-
 class KalmanFilter:
 
     def __init__(self, initial_value):
+
+        # Our first estimate of the depth
         self.estimate = initial_value
-        # error of the sensor
+
+        # How uncertain we are about our estimate
         self.error = 1.0
-        # amount of noise in the sensor.
-        # (The larger the measurement_noise value we enter, smoother the graph will be)
-        self.measurement_noise = 50.0
-        # constantly injects a small amount of uncertainty so the Kalman gain keeps paying attention to incoming sensor data.
+
+        # How noisy we believe the sensor is
+        self.measurement_noise = 10.0
+
+        # How much we expect the actual depth to change
         self.process_noise = 1.0
 
 
