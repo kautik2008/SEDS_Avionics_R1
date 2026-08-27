@@ -56,13 +56,13 @@ void setup() {
 
 	pinMode(buttonPin, INPUT_PULLUP);
 
-    	pinMode(ledPin, OUTPUT);
-    	pinMode(buzzerPin, OUTPUT);
+    pinMode(ledPin, OUTPUT);
+    pinMode(buzzerPin, OUTPUT);
 
-    	lcd.begin(16, 2);
+    lcd.begin(16, 2);
 
-    	lcd.clear();
-    	lcd.setCursor(0, 0);
+    lcd.clear();
+    lcd.setCursor(0, 0);
   	lcd.print("OPEN SEA");
 
   	Serial.begin(9600);
@@ -155,32 +155,7 @@ void changeState(State newState) {
   // Disply the current state in LCD
   // LCD Display changes only when the state changes. 
   // If it was placed inside the loop, it would have been erased and rewritten rapidly.
-  	lcd.clear();
-  	lcd.setCursor(0, 0);
-
-  	switch (currentState) {
-		case OPEN_SEA:
-			lcd.print("OPEN SEA");
-      			break;
-
-    		case ANCHOR_DROPPED:
-      			lcd.print("ANCHOR DROPPED");
-      			break;
-
-    		case STORM:
-      			lcd.print("STORM");
-      			break;
-
-    		case CHARYBDIS:
-      			lcd.print("CHARYBDIS");
-      			break;
-
-    		case WRECKED:
-      			lcd.print("WRECKED");
-      			break;
-  	}
-
-}
+  	displayState()
 
 
 // MAIN LOOP 
